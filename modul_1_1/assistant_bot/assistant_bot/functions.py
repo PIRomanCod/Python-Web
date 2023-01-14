@@ -11,7 +11,7 @@ def parser(user_input: str):
     return handler(parsed_input)
 
 
-# @input_error
+@input_error
 def handler(parsed_input: str):
     if parsed_input[0] in commands_dict:
         if len(parsed_input) == 1:
