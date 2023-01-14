@@ -3,6 +3,7 @@ from input_error import input_error
 from record import Record
 from exc import NoUserError, NoteExistError
 import cleaner
+from abs_interface import UserOutput
 
 
 def parser(user_input: str):
@@ -137,8 +138,8 @@ def delete_attribute(string: str):
         raise NoUserError
     else:
         record = users.data[new_elem[0]]
-        if new_elem[1] in ["phone", "birthday", "email", "note", "notes", "address"]:
-            if new_elem[1] == "phone":
+        if new_elem[1] in ["phones", "birthday", "email", "note", "notes", "address"]:
+            if new_elem[1] == "phones":
                 if len(new_elem) < 3:
                     return "The command need more args"
                 if record.delete_attribute(new_elem[1], new_elem[2]) is True:
@@ -222,9 +223,11 @@ def find_text(string: str):
 def search(string: str):
     new_elem = string.split()
     result = users.search_contacts(new_elem[0])
-    if type(result) == list:
-        result = '\n'.join(result)
-    return result
+    # if type(result) == list:
+    #     result = '\n'.join(result)
+    res = UserOutput(result)
+    return res.get_table()
+    # return result
 
 
 def show_all():
@@ -232,7 +235,9 @@ def show_all():
         return "AddressBook is empty"
     result = [record.get_info() for page in users.iterator()
               for record in page]
-    return '\n'.join(result)
+    #return '\n'.join(result)
+    res = UserOutput(result)
+    return res.get_table()
 
 
 def delete_contact(string: str):

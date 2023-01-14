@@ -109,9 +109,9 @@ class Record(Field):
         phones_info = [phone.value for phone in self.phones]
 
         if self.birthday:
-            birthday_info = f'Burned: {self.birthday.value}'
+            birthday_info = self.birthday.value
         if self.email:
-            email_info = f'Email: {self.email.value}'
+            email_info = self.email.value
         if self.notes:
             notes_list = []
             string_tags = ""
@@ -121,10 +121,11 @@ class Record(Field):
                 notes_list.append(f"{text}, #{string_tags}")
                 string_tags = ""
             notes_string = "; ".join(notes_list)
-            notes_info = f"Notes: {notes_string}"
+            notes_info = notes_string
         if self.address:
-            address_info = f'Lives: {self.address.value.title()}'
-        return f"Contact - {self.name.value.capitalize()} : phones: {', '.join(phones_info)} {birthday_info} {email_info} {notes_info} {address_info}"
+            address_info = self.address.value.title()
+        return f"{self.name.value.capitalize()} | {', '.join(phones_info)} | {birthday_info} | {email_info} | {notes_info} | {address_info}"
+        # return {"Contact": {self.name.value.capitalize()}, "Phones" : {', '.join(phones_info)}, "Burned": {birthday_info}, "Email": {email_info}, "Notes": {notes_info}, "Lives": {address_info}}
 
     def day_to_birthday(self):
         if not self.birthday:

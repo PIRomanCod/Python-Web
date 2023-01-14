@@ -18,6 +18,9 @@ class AddressBook(UserDict, FileStorage):
     def get_contact(self, name: str):
         if name in self.data:
             contact_info = []
+            email_info = ""
+            address_list = ""
+            notes_string = ""
             phones_list = ', '.join(
                 [phone.value for phone in self.data[name].phones])
             contact_info.append(f"Phones: {phones_list}")
@@ -25,7 +28,9 @@ class AddressBook(UserDict, FileStorage):
                 birthday = self.data[name].birthday.value
                 contact_info.append(f"Burned: {birthday}")
             if self.data[name].email:
+                email_info = self.data[name].email.value
                 contact_info.append(f"Email: {self.data[name].email.value}")
+
             if self.data[name].notes:
                 notes_list = []
                 string_tags = ""
@@ -39,7 +44,10 @@ class AddressBook(UserDict, FileStorage):
                 address_list = self.data[name].address.value
                 contact_info.append(f"Lives: {address_list.title()}")
 
-            return f"Contact - {name.capitalize()} have next information: {[item for item in contact_info]}"
+            # return f"Contact - {name.capitalize()} have next information: {[item for item in contact_info]}"
+            return f"{name.capitalize()} | {phones_list} | {birthday} | {email_info} | {notes_string} | {address_list.title()}"
+
+            # return f"{name.capitalize()} have next information: {[item for item in contact_info]}"
         return f"There is no contacts with this data"
 
     def find_text(self, text: str):
