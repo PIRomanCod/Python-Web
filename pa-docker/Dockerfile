@@ -1,6 +1,6 @@
 FROM python:3.10
 
-WORKDIR /app
+WORKDIR /pa-docker
 COPY . .
 RUN pip install -r requirements.txt
-ENTRYPOINT ["python", "assistant_bot.main.py"]
+ENTRYPOINT ["python", "pa"]
